@@ -49,3 +49,58 @@ var obj2 = #8711; // obj2 pointing to the same address
 // changing the value of obj1
 obj.name = "Akki";
 console.log(obj2);
+
+
+Higher Order Functions
+- Functions that operate on other functions, either by taking them as arguments or by returning them, are called higher-order functions.
+
+.this - The “this” keyword refers to the object that the function is a property of.
+
+self-invoking function
+A self-invoking function is a nameless (anonymous) function that is invoked immediately after its definition.
+(function(){
+    console.log("This function is called immediately");
+})();
+
+call() - This method invokes a method (function) by specifying the owner object. - sayHello.call(obj);
+apply() - call() method takes arguments separately whereas, apply() method takes arguments as an array. - saySomething.apply(person4, ["awesome"]);
+bind() - This method returns a new function, where the value of “this” keyword will be bound to the owner object, which is provided as a parameter. - var detailsOfPerson1 = bikeDetails.displayDetails.bind(person1, "TS0122", "Bullet");
+Call, apply, and bind are the functions that help you change the context of the this keyword present inside the invoking function.
+We saw how each function can be called in different ways – for example, with apply you can execute a function with an array of arguments, and with the call function you can execute the same but the arguments are spread via commas.
+These functions are really useful in class-based components of React.
+
+
+Currying - Currying is an advanced technique to transform a function of arguments n, to n functions of one or fewer arguments.
+f we have a function f(a,b), then the function after currying, will be transformed to f(a)(b).
+
+Scope in JS determines the accessibility of variables and functions at various parts of one’s code.
+Global Scope - Variables or functions declared in the global namespace have global scope
+Local or Function Scope - Any variables or functions declared inside a function have local/function scope
+Block Scope - Block scope is related to the variables declared using let and const. Variables declared with var do not have block scope.
+Scope Chain - As you can see in the code above, if the javascript engine does not find the variable in local scope, it tries to check for the variable in the outer scope. If the variable does not exist in the outer scope, it tries to find the variable in the global scope.
+
+If the variable is not found in the global space as well, a reference error is thrown.
+
+Closures - Closures are an ability of a function to remember the variables and functions that are declared in its outer scope.
+
+
+All javascript objects inherit properties from a prototype A prototype is a blueprint of an object. The prototype allows us to use properties and methods on an object even if the properties and methods do not exist on the current object.
+
+callback() - callback is a function that will be executed after another function gets executed.
+operationOnSum(3, 3, divideByHalf); 
+
+
+memoization - Memoization is a form of caching where the return value of a function is cached based on its parameters. If the parameter of that function is not changed, the cached version of the function is returned.
+this is where memoization comes in, by using memoization we can store(cache) the computed results based on the parameters. If the same parameter is used again while invoking the function, instead of computing the result, we directly return the stored (cached) value.
+
+Recursion - Recursion is a technique to iterate over an operation by having a function call itself repeatedly until it arrives at a result.
+
+constructor function - If we want to create multiple objects having similar properties and methods, constructor functions are used.
+
+
+arrow functions - They provide us with a new and shorter syntax for declaring functions.
+- The biggest difference between the traditional function expression and the arrow function is the handling of this keyword. By general definition, this keyword always refers to the object that is calling the function. In the arrow functions, there is no binding of this keyword. This keyword inside an arrow function does not refer to the object calling it. It rather inherits its value from the parent scope which is the window object in this case.
+
+Rest parameter & spread parameter
+Rest parameter is used to take a variable number of arguments and turns them into an array while the spread operator takes an array or an object and spreads it
+Rest parameter is used in function declaration whereas the spread operator is used in function calls.
