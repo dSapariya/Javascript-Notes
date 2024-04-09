@@ -104,3 +104,23 @@ arrow functions - They provide us with a new and shorter syntax for declaring fu
 Rest parameter & spread parameter
 Rest parameter is used to take a variable number of arguments and turns them into an array while the spread operator takes an array or an object and spreads it
 Rest parameter is used in function declaration whereas the spread operator is used in function calls.
+
+
+Promises are used to handle asynchronous operations like server requests, for ease of understanding, we are using an operation to calculate the sum of three elements.
+new Promise((resolve,reject)=>{});
+
+generator functions
+They can be stopped midway and then continue from where they had stopped.
+yield: pauses the generator execution and returns the value of the expression which is being written after the yield keyword.
+yield*: it iterates over the operand and returns each value until done is true. it's use for array
+function* fun() { 
+    yield 10; 
+    yield [2,3,5,5; 
+    yield 30; 
+} 
+
+Temporal Dead Zone 
+Temporal Dead Zone is a behaviour that occurs with variables declared using let and const keywords. It is a behaviour where we try to access a variable before it is initialized.
+
+Babel, it converts modern JavaScript syntax into a version that is compatible with all environments.
+Prototype Design Pattern - Prototype Pattern creates new objects, but instead of returning uninitialized objects, it returns objects with values copied from a prototype - or sample - object. 
