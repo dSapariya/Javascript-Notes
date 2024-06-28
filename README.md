@@ -46,3 +46,55 @@ var myArrowFunc = () => {
 console.log(myVar); // Output: 10
 myFunc(); // Output: This is my function.
 myArrowFunc(); // Output: This is my arrow function.
+```
+
+In the example above:
+- `myVar` is accessed before it is initialized, so it returns `undefined`.
+- `myFunc` is accessed before it is defined, so it returns the whole function.
+- `myArrowFunc` is accessed before it is initialized, so it returns `undefined`.
+
+## Lexical Environment, Scope, and Scope Chain
+
+### Lexical Environment
+
+- A lexical environment is the environment in which variables and functions are physically written in the source code.
+- It consists of the local memory (variable environment) and a reference to the parent lexical environment.
+
+### Scope
+
+- Scope determines the accessibility of variables and functions at various parts of the code.
+- There are three types of scope:
+  1. **Global Scope**: Variables declared outside any function have a global scope and can be accessed anywhere in the code.
+  2. **Function Scope**: Variables declared within a function are only accessible within that function.
+  3. **Block Scope**: Variables declared within a block (e.g., inside a loop or conditional statement) are only accessible within that block (introduced with `let` and `const` in ES6).
+
+### Scope Chain
+
+- The scope chain is used to resolve variable access in nested functions.
+- It consists of references to its own lexical environment and its parent lexical environments up to the global environment.
+
+### Example of Lexical Environment, Scope, and Scope Chain
+
+```javascript
+const globalVar = 'Global';
+
+function outerFunc() {
+    const outerVar = 'Outer';
+
+    function innerFunc() {
+        const innerVar = 'Inner';
+        console.log(globalVar); // Output: Global
+        console.log(outerVar);  // Output: Outer
+        console.log(innerVar);  // Output: Inner
+    }
+
+    innerFunc();
+    console.log(globalVar); // Output: Global
+    console.log(outerVar);  // Output: Outer
+    // console.log(innerVar); // Error: innerVar is not defined
+}
+
+outerFunc();
+// console.log(outerVar); // Error: outerVar is not defined
+// console.log(innerVar); // Error: innerVar is not defined
+```
