@@ -98,3 +98,19 @@ outerFunc();
 // console.log(outerVar); // Error: outerVar is not defined
 // console.log(innerVar); // Error: innerVar is not defined
 ```
+
+## Temporal Dead Zone (TDZ)
+
+- The Temporal Dead Zone is the period between the start of the execution of a block and the point where a variable is declared and initialized.
+- During this time, any reference to the variable will result in a `ReferenceError`.
+Note : var store in gloabl space where let and const not store in separate memory space(script) so it's not accessible and gives refrence error
+### Example of Temporal Dead Zone
+
+```javascript
+console.log(myVar); // Output: undefined (due to hoisting)
+console.log(myLet); // Error: Cannot access 'myLet' before initialization
+console.log(myConst); // Error: Cannot access 'myConst' before initialization
+
+var myVar = 10;
+let myLet = 20;
+const myConst = 30;
