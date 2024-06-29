@@ -98,9 +98,6 @@ outerFunc();
 // console.log(outerVar); // Error: outerVar is not defined
 // console.log(innerVar); // Error: innerVar is not defined
 ```
-
-Sure! Here's a README file explaining block and block scope in JavaScript.
-
 ---
 
 # Block and Block Scope in JavaScript
