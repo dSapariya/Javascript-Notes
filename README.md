@@ -114,12 +114,9 @@ console.log(myConst); // Error: Cannot access 'myConst' before initialization
 var myVar = 10;
 let myLet = 20;
 const myConst = 30;
+```
 
-Certainly! Here's a sample README file that explains the usage of `var`, `let`, and `const` in JavaScript, along with examples to illustrate their behavior.
-
----
-
-# JavaScript Variable Declaration: `var`, `let`, and `const`
+### JavaScript Variable Declaration: `var`, `let`, and `const`
 
 ## `var`
 
@@ -198,5 +195,75 @@ console.log(a); // Output: 1
 // console.log(b); // ReferenceError: b is not defined
 // console.log(c); // ReferenceError: c is not defined
 ```
-
 ---
+
+# Common JavaScript Errors
+
+JavaScript errors are categorized into different types, each indicating a specific kind of issue in your code. Here are some of the most common JavaScript errors:
+
+## `SyntaxError`
+
+A `SyntaxError` occurs when the code syntax is incorrect and cannot be parsed by the JavaScript engine.
+
+### Example:
+```javascript
+// Missing closing parenthesis
+console.log("Hello, world!" // SyntaxError: Unexpected end of input
+
+// Using a reserved keyword as a variable name
+var let = 10; // SyntaxError: Unexpected token let
+```
+
+## `ReferenceError`
+
+A `ReferenceError` occurs when a variable that has not been declared is referenced in the code.
+
+### Example:
+```javascript
+console.log(x); // ReferenceError: x is not defined
+
+function test() {
+  console.log(y); // ReferenceError: y is not defined
+  let y = 5;
+}
+test();
+```
+
+## `TypeError`
+
+A `TypeError` occurs when a value is not of the expected type or when an operation is performed on a value of the wrong type.
+
+### Example:
+```javascript
+// Trying to call a non-function as a function
+var x = 10;
+x(); // TypeError: x is not a function
+
+// Accessing a property on `undefined` or `null`
+var obj = null;
+console.log(obj.property); // TypeError: Cannot read property 'property' of null
+```
+## Handling Errors with `try...catch`
+
+JavaScript provides the `try...catch` block to handle runtime errors gracefully.
+
+### Example:
+```javascript
+try {
+  // Code that may throw an error
+  let result = riskyOperation();
+  console.log(result);
+} catch (error) {
+  // Handling the error
+  console.error('An error occurred:', error.message);
+} finally {
+  // Code that will run regardless of an error occurring or not
+  console.log('This will always run');
+}
+
+function riskyOperation() {
+  // Example function that throws an error
+  throw new Error('Something went wrong!');
+}
+```
+
