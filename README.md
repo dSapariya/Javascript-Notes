@@ -392,7 +392,7 @@ console.log(y); // Output: 40 (outer y is affected due to function scope)
 
 ## Deep Copy
 
-A deep copy is a process where all levels of an object or array are copied. This means that nested objects and arrays are also duplicated, creating a completely independent copy. In contrast, a shallow copy only duplicates the top-level properties.
+A deep copy is a process where all levels of an object or array are copied. This means that nested objects and arrays are also duplicated, creating a completely independent copy. In contrast, a shallow copy only duplicates the top-level properties. This means only the top-level properties are copied, and nested objects are still referenced.
 
 ### Example of Shallow Copy:
 ```javascript
@@ -431,5 +431,94 @@ newState.user.name = 'Bob';
 console.log(state.user.name); // Output: Alice (original state is unaffected)
 console.log(newState.user.name); // Output: Bob
 ```
+Certainly! Let's delve into closures in JavaScript from the perspective of lexical environments. 
 
+## Lexical Environment and Closures
+
+A lexical environment is the environment in which a function was created. It consists of any local variables that were in-scope at the time the function was defined.
+
+### What is a Closure?
+
+A closure is formed when an inner function is defined within an outer function and the inner function retains access to the outer function's variables even after the outer function has returned. This ability of the inner function to access the outer function’s scope is what constitutes a closure.
+Funaction along with it's lexical scope which bundle together forms a closure.
+### Lexical Environment
+
+The lexical environment includes:
+- The local environment where the function is defined (variables, constants, parameters).
+- The outer environment (parent scopes up to the global scope).
+
+### Example of Closure with Lexical Environment
+
+Here’s an example that illustrates closures with lexical environments:
+
+```javascript
+function outerFunction() {
+  let outerVariable = 'I am outside!';
+  
+  function innerFunction() {
+    console.log(outerVariable); // Inner function can access outer function's variable
+  }
+
+  return innerFunction;
+}
+
+const myClosure = outerFunction();
+myClosure(); // Output: I am outside!
+```
+
+### Lexical Environment Example with State
+
+Let’s see a more complex example where closures help maintain state across function calls:
+
+```javascript
+function createCounter() {
+  let count = 0; // Private variable
+
+  return {
+    increment: function() {
+      count++;
+      console.log(count);
+    },
+    decrement: function() {
+      count--;
+      console.log(count);
+    },
+    getCount: function() {
+      return count;
+    }
+  };
+}
+
+const counter = createCounter();
+counter.increment(); // Output: 1
+counter.increment(); // Output: 2
+counter.decrement(); // Output: 1
+console.log(counter.getCount()); // Output: 1
+```
+
+Using closures in loops can sometimes be tricky due to how lexical environments work. Here’s an example with closures inside a loop:
+
+```javascript
+function createArrayOfClosures() {
+  let closures = [];
+  
+  for (let i = 0; i < 3; i++) {
+    closures.push(function() {
+      console.log(i); // Each closure captures the current value of `i`
+    });
+  }
+
+  return closures;
+}
+
+let myClosures = createArrayOfClosures();
+myClosures[0](); // Output: 0
+myClosures[1](); // Output: 1
+myClosures[2](); // Output: 2
+```
+### Summary
+
+- **Closures** allow functions to retain access to their lexical environment.
+- **Lexical environments** consist of local variables and their parent scopes.
+- **Example** demonstrates closures maintaining state and working within loops.
 
