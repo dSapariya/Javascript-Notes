@@ -359,3 +359,77 @@ function riskyOperation() {
 }
 ```
 
+# Shadowing and Deep Copy in JavaScript
+
+## Shadowing
+
+Shadowing occurs when a variable declared within a certain scope (e.g., a block or function) has the same name as a variable declared in an outer scope. The inner variable "shadows" the outer variable, making the outer variable inaccessible within the inner scope.
+
+### Example of Shadowing:
+```javascript
+let x = 10;
+
+function shadowExample() {
+  let x = 20; // This x shadows the outer x
+  console.log(x); // Output: 20
+}
+
+shadowExample();
+console.log(x); // Output: 10 (outer x is unaffected)
+```
+
+### Example with `var`:
+```javascript
+var y = 30;
+
+if (true) {
+  var y = 40; // This y shadows the outer y within the function scope
+  console.log(y); // Output: 40
+}
+
+console.log(y); // Output: 40 (outer y is affected due to function scope)
+```
+
+## Deep Copy
+
+A deep copy is a process where all levels of an object or array are copied. This means that nested objects and arrays are also duplicated, creating a completely independent copy. In contrast, a shallow copy only duplicates the top-level properties.
+
+### Example of Shallow Copy:
+```javascript
+let original = { a: 1, b: { c: 2 } };
+let shallowCopy = Object.assign({}, original);
+
+shallowCopy.b.c = 3;
+console.log(original.b.c); // Output: 3 (original object is affected)
+```
+
+### Example of Deep Copy:
+```javascript
+let original = { a: 1, b: { c: 2 } };
+
+// Using JSON methods (not recommended for all cases due to loss of functions and undefined values)
+let deepCopy = JSON.parse(JSON.stringify(original));
+
+deepCopy.b.c = 3;
+console.log(original.b.c); // Output: 2 (original object is unaffected)
+```
+
+## Practical Usage of Deep Copy
+
+Deep copies are essential when working with complex data structures where changes to a copied object should not affect the original object. This is particularly important in state management, functional programming, and scenarios involving immutability.
+
+### Example in State Management:
+```javascript
+let state = {
+  user: { name: 'Alice', age: 25 },
+  settings: { theme: 'dark', notifications: true }
+};
+
+let newState = deepCopy(state);
+newState.user.name = 'Bob';
+
+console.log(state.user.name); // Output: Alice (original state is unaffected)
+console.log(newState.user.name); // Output: Bob
+```
+
+
