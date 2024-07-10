@@ -522,3 +522,82 @@ myClosures[2](); // Output: 2
 - **Lexical environments** consist of local variables and their parent scopes.
 - **Example** demonstrates closures maintaining state and working within loops.
 
+### setTimeout with closures
+Using `setTimeout` with closures inside a loop can be tricky due to the way JavaScript handles variable scoping, particularly with the `var` keyword. Here's a common issue and how to solve it using closures:
+
+### Problem with `var`
+
+When using `var` in a loop, all instances of `setTimeout` end up referencing the same variable, resulting in unexpected behavior. For example:
+
+```javascript
+for (var i = 1; i <= 5; i++) {
+  setTimeout(function() {
+    console.log(i);
+  }, i * 1000);
+}
+
+// Output after 5 seconds: 6 6 6 6 6
+```
+
+All `setTimeout` callbacks print `6` because they all share the same `i` variable, which ends up being `6` after the loop completes.
+
+### Solution with Closures
+
+To fix this, you can use an IIFE (Immediately Invoked Function Expression) to create a new scope for each iteration, capturing the current value of `i`.
+
+```javascript
+for (var i = 1; i <= 5; i++) {
+  (function(i) {
+    setTimeout(function() {
+      console.log(i);
+    }, i * 1000);
+  })(i);
+}
+
+// Output: 1 2 3 4 5 (each logged one second apart)
+```
+### Solution with another function calling with var
+
+To fix this, you can use an IIFE (Immediately Invoked Function Expression) to create a new scope for each iteration, capturing the current value of `i`.
+
+```javascript
+for (var i = 1; i <= 5; i++) {
+  function close(i) {
+    setTimeout(function() {
+      console.log(i);
+    }, i * 1000);
+  };
+close(i); // it pass i to close function and this time it remember new copy of i
+}
+
+// Output: 1 2 3 4 5 (each logged one second apart)
+### Explanation
+
+1. **IIFE**:
+    - `(function(i) { ... })(i)` is an IIFE that creates a new function and immediately invokes it with the current value of `i`.
+    - This captures the current value of `i` in a new scope, ensuring each `setTimeout` callback has its own copy of `i`.
+
+2. **setTimeout**:
+    - Inside the IIFE, `setTimeout` schedules the logging of `i` after `i * 1000` milliseconds.
+    - Because each IIFE invocation creates a new scope, each `setTimeout` callback references a different `i` value.
+
+### Using `let` (ES6+)
+
+In ES6, you can use the `let` keyword to achieve the same result more cleanly, as `let` creates a new block scope for each iteration.
+
+```javascript
+for (let i = 1; i <= 5; i++) {
+  setTimeout(function() {
+    console.log(i);
+  }, i * 1000);
+}
+
+// Output: 1 2 3 4 5 (each logged one second apart)
+```
+
+### Explanation
+
+- When using `let`, each iteration of the loop has its own `i` variable.
+- The `setTimeout` callbacks correctly reference the `i` value from their respective iterations.
+
+
