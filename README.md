@@ -936,7 +936,7 @@ console.log(namedFactorial(5)); // Outputs: 120
 // console.log(fact); // ReferenceError: fact is not defined
 ```
 
-#### Anonymous Function Expression
+### Anonymous Function Expression
 
 ```javascript
 const anonymousFactorial = function(n) {
@@ -951,4 +951,114 @@ console.log(anonymousFactorial(5)); // Outputs: 120
 ```
 
 In the case of the anonymous function expression, the function cannot refer to itself by name, making recursion impossible unless the variable it is assigned to (`anonymousFactorial`) is used.
+
+### First-Class Functions
+
+1. **Assigning Functions to Variables**
+
+   Functions can be assigned to variables, allowing them to be passed around and manipulated like any other data type.
+
+   ```javascript
+   const greet = function(name) {
+     return `Hello, ${name}!`;
+   };
+
+   console.log(greet('Alice')); // Outputs: "Hello, Alice!"
+   ```
+
+2. **Passing Functions as Arguments**
+
+   Functions can be passed as arguments to other functions. This is commonly used in higher-order functions such as array methods like `.map()`, `.filter()`, and `.reduce()`.
+
+   ```javascript
+   function sayHello() {
+     console.log('Hello!');
+   }
+
+   function executeFunction(func) {
+     func();
+   }
+
+   executeFunction(sayHello); // Outputs: "Hello!"
+   ```
+
+3. **Returning Functions from Other Functions**
+
+   Functions can be returned from other functions, enabling the creation of function factories and other higher-order patterns.
+
+   ```javascript
+   function createGreeting(greeting) {
+     return function(name) {
+       return `${greeting}, ${name}!`;
+     };
+   }
+
+   const sayHi = createGreeting('Hi');
+   console.log(sayHi('Bob')); // Outputs: "Hi, Bob!"
+   ```
+
+4. **Storing Functions in Data Structures**
+
+   Functions can be stored in arrays, objects, and other data structures.
+
+   ```javascript
+   const operations = {
+     add: function(a, b) {
+       return a + b;
+     },
+     subtract: function(a, b) {
+       return a - b;
+     }
+   };
+
+   console.log(operations.add(5, 3)); // Outputs: 8
+   console.log(operations.subtract(5, 3)); // Outputs: 2
+   ```
+
+### Examples
+
+#### Higher-Order Functions
+
+Higher-order functions are functions that take other functions as arguments or return functions as their results.
+
+```javascript
+// Function that takes another function as an argument
+function repeat(operation, num) {
+  for (let i = 0; i < num; i++) {
+    operation();
+  }
+}
+
+function sayHello() {
+  console.log('Hello!');
+}
+
+repeat(sayHello, 3); // Outputs: "Hello!" three times
+```
+
+#### Callback Functions
+
+A callback function is a function passed into another function as an argument, which is then invoked inside the outer function to complete some kind of action.
+
+```javascript
+function fetchData(callback) {
+  setTimeout(function() {
+    const data = { name: 'John Doe', age: 30 };
+    callback(data);
+  }, 1000);
+}
+
+function processData(data) {
+  console.log(`Name: ${data.name}, Age: ${data.age}`);
+}
+
+fetchData(processData); // Outputs: "Name: John Doe, Age: 30" after 1 second
+```
+
+### Benefits of First-Class Functions
+
+1. **Modularity**: Code can be broken down into smaller, reusable functions.
+2. **Flexibility**: Functions can be passed around and manipulated, enabling powerful patterns like callbacks, higher-order functions, and function composition.
+3. **Abstraction**: Higher-order functions and callbacks allow for abstracting repetitive or boilerplate code.
+
 
