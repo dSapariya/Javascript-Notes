@@ -743,3 +743,85 @@ for (let i = 1; i <= 5; i++) {
      const closures = createClosuresInLoop();
      closures[0](); // Excessive closure creation inside a loop.
      ```
+
+### Anonymous Function
+  Anonymous functions in JavaScript are functions that are defined without a name. 
+  They are often used as arguments to other functions or as immediate values that do not need to be referenced later in the code.
+
+### Key Points
+
+1. **No Name**: Anonymous functions do not have a name identifier. They are typically used in contexts where a function is needed as a one-off.
+2. **Usage in Callbacks**: Frequently used as callbacks for array methods like `.map()`, `.filter()`, `.reduce()`, and event handlers.
+3. **Immediate Invocation**: Often used in Immediately Invoked Function Expressions (IIFE) to create a new scope.
+4. **Arrow Functions**: Arrow functions can be anonymous and are a more concise way to write function expressions.
+
+### Examples
+
+#### 1. Using Anonymous Functions with Array Methods
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+// Using an anonymous function with map
+const squares = numbers.map(function(number) {
+  return number * number;
+});
+
+console.log(squares); // Outputs: [1, 4, 9, 16, 25]
+```
+
+#### 2. Anonymous Functions as Event Handlers
+
+```javascript
+document.getElementById('myButton').addEventListener('click', function() {
+  alert('Button was clicked!');
+});
+```
+
+#### 3. Immediately Invoked Function Expression (IIFE)
+
+```javascript
+(function() {
+  console.log('This function runs immediately!');
+})();
+```
+
+#### 4. Arrow Functions
+
+Arrow functions provide a concise syntax for writing anonymous functions:
+
+```javascript
+// Using arrow function with map
+const squares = numbers.map(number => number * number);
+
+console.log(squares); // Outputs: [1, 4, 9, 16, 25]
+
+// Arrow function as an event handler
+document.getElementById('myButton').addEventListener('click', () => {
+  alert('Button was clicked!');
+});
+```
+
+#### 5. Returning Functions from Functions
+
+```javascript
+function createMultiplier(multiplier) {
+  return function(x) {
+    return x * multiplier;
+  };
+}
+
+const double = createMultiplier(2);
+console.log(double(5)); // Outputs: 10
+```
+
+### Advantages of Using Anonymous Functions
+
+1. **Conciseness**: They make code more concise and readable, especially for simple operations.
+2. **Encapsulation**: Anonymous functions can encapsulate logic that doesn't need to be reused elsewhere.
+3. **Functional Programming**: Widely used in functional programming paradigms for higher-order functions.
+
+### Disadvantages of Using Anonymous Functions
+
+1. **Debugging**: Without a name, stack traces can be less informative when debugging.
+2. **Reusability**: Anonymous functions are not reusable. If you need to use the same logic in multiple places, named functions are more appropriate.
