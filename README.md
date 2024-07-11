@@ -885,5 +885,70 @@ console.log(greet('Bob')); // Outputs: "Hello, Bob!"
 | **Execution Context**  | Available throughout the scope      | Available only after the definition|
 | **Syntax**             | `function functionName(parameters) { ... }` | `const functionName = function(parameters) { ... };` |
 
+### Named function expression
+It is a type of function expression where the function is given a name.
+This name can be used within the function itself for recursive calls or for identification in debugging, but the function name is not accessible outside the function expression.
 
+### Syntax
+
+```javascript
+const variableName = function abc(parameters) {
+  // function body
+};
+```
+
+### Example
+
+```javascript
+const factorial = function fact(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * fact(n - 1);
+  }
+};
+
+console.log(factorial(5)); // Outputs: 120
+```
+
+### Differences between Named Function Expressions and Anonymous Function Expressions
+
+| Feature                | Named Function Expression            | Anonymous Function Expression       |
+|------------------------|--------------------------------------|-------------------------------------|
+| **Naming**             | Has a local name for recursion and debugging | No name                             |
+| **Scope**              | The name is only accessible inside the function | Not applicable                      |
+| **Debugging**          | Easier to identify in stack traces   | Harder to identify in stack traces  |
+
+### Example Illustrating Differences
+
+#### Named Function Expression
+
+```javascript
+const namedFactorial = function fact(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * fact(n - 1);
+  }
+};
+
+console.log(namedFactorial(5)); // Outputs: 120
+// console.log(fact); // ReferenceError: fact is not defined
+```
+
+#### Anonymous Function Expression
+
+```javascript
+const anonymousFactorial = function(n) {
+  if (n <= 1) {
+    return 1;
+  } else {
+    return n * anonymousFactorial(n - 1); // This will cause an error
+  }
+};
+
+console.log(anonymousFactorial(5)); // Outputs: 120
+```
+
+In the case of the anonymous function expression, the function cannot refer to itself by name, making recursion impossible unless the variable it is assigned to (`anonymousFactorial`) is used.
 
