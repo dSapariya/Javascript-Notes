@@ -825,3 +825,65 @@ console.log(double(5)); // Outputs: 10
 
 1. **Debugging**: Without a name, stack traces can be less informative when debugging.
 2. **Reusability**: Anonymous functions are not reusable. If you need to use the same logic in multiple places, named functions are more appropriate.
+
+### Functions
+### Function Statement (Function Declaration)
+
+A function statement or function declaration defines a function with the specified parameters and a function body.
+It is hoisted to the top of its scope, meaning it can be called before it is defined in the code.
+
+#### Syntax
+
+```javascript
+function functionName(parameters) {
+  // function body
+}
+```
+
+#### Example
+
+```javascript
+// Function declaration
+function greet(name) {
+  return `Hello, ${name}!`;
+}
+
+// Function call before declaration
+console.log(greet('Alice')); // Outputs: "Hello, Alice!"
+```
+
+### Function Expression
+A function expression defines a function as part of an expression.
+It can be named or anonymous and is not hoisted, meaning it cannot be called before it is defined.
+
+#### Syntax
+
+```javascript
+const functionName = function(parameters) {
+  // function body
+};
+```
+
+#### Example
+
+```javascript
+// Function expression
+const greet = function(name) {
+  return `Hello, ${name}!`;
+};
+
+// Function call after definition
+console.log(greet('Bob')); // Outputs: "Hello, Bob!"
+```
+
+### Differences between Function Statements and Function Expressions
+
+| Feature                | Function Statement (Declaration)    | Function Expression                |
+|------------------------|-------------------------------------|------------------------------------|
+| **Hoisting**           | Yes, hoisted to the top of the scope| No, not hoisted                    |
+| **Naming**             | Must have a name                    | Can be named or anonymous          |
+| **Execution Context**  | Available throughout the scope      | Available only after the definition|
+| **Syntax**             | `function functionName(parameters) { ... }` | `const functionName = function(parameters) { ... };` |
+
+
+
