@@ -1061,4 +1061,154 @@ fetchData(processData); // Outputs: "Name: John Doe, Age: 30" after 1 second
 2. **Flexibility**: Functions can be passed around and manipulated, enabling powerful patterns like callbacks, higher-order functions, and function composition.
 3. **Abstraction**: Higher-order functions and callbacks allow for abstracting repetitive or boilerplate code.
 
+### Callback Functions
 
+1. **Definition**: A callback function is a function passed into another function as an argument and is executed after some kind of event or task.
+2. **Usage**: Callbacks are often used for asynchronous operations like handling user inputs, network requests, and timers.
+3. **Flexibility**: Callbacks allow functions to be more flexible and reusable.
+
+### Examples
+
+#### Basic Callback Example
+
+Here's a simple example to demonstrate the concept of a callback function:
+
+```javascript
+function greeting(name) {
+  console.log(`Hello, ${name}!`);
+}
+
+function processUserInput(callback) {
+  const name = 'Alice';
+  callback(name);
+}
+
+processUserInput(greeting); // Outputs: "Hello, Alice!"
+```
+
+In this example, `greeting` is the callback function passed to `processUserInput` and is executed with the argument `name`.
+
+#### Asynchronous Callback Example
+
+Callbacks are particularly useful in asynchronous programming, such as with `setTimeout`:
+
+```javascript
+function sayHello() {
+  console.log('Hello after 2 seconds!');
+}
+
+setTimeout(sayHello, 2000); // Outputs: "Hello after 2 seconds!" after 2 seconds
+```
+
+Here, `sayHello` is the callback function that `setTimeout` executes after 2000 milliseconds.
+
+#### Handling Asynchronous Data
+
+Callbacks are often used to handle asynchronous data, such as with HTTP requests. Using the `fetch` API, you can pass a callback to process the response:
+
+```javascript
+function fetchData(url, callback) {
+  fetch(url)
+    .then(response => response.json())
+    .then(data => callback(data))
+    .catch(error => console.error('Error:', error));
+}
+
+function processData(data) {
+  console.log('Received data:', data);
+}
+
+fetchData('https://api.example.com/data', processData);
+```
+
+In this example, `processData` is the callback function that processes the data received from the API.
+
+### Nested Callbacks (Callback Hell)
+
+When dealing with multiple asynchronous operations, you might encounter nested callbacks, often referred to as "callback hell." This can lead to code that is difficult to read and maintain.
+
+```javascript
+function firstTask(callback) {
+  setTimeout(() => {
+    console.log('First task completed');
+    callback();
+  }, 1000);
+}
+
+function secondTask(callback) {
+  setTimeout(() => {
+    console.log('Second task completed');
+    callback();
+  }, 1000);
+}
+
+function thirdTask(callback) {
+  setTimeout(() => {
+    console.log('Third task completed');
+    callback();
+  }, 1000);
+}
+
+firstTask(() => {
+  secondTask(() => {
+    thirdTask(() => {
+      console.log('All tasks completed');
+    });
+  });
+});
+```
+
+### Promises and Async/Await
+
+To avoid callback hell and make asynchronous code more readable, JavaScript provides Promises and the `async`/`await` syntax:
+
+#### Using Promises
+
+```javascript
+function firstTask() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log('First task completed');
+      resolve();
+    }, 1000);
+  });
+}
+
+function secondTask() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log('Second task completed');
+      resolve();
+    }, 1000);
+  });
+}
+
+function thirdTask() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      console.log('Third task completed');
+      resolve();
+    }, 1000);
+  });
+}
+
+firstTask()
+  .then(secondTask)
+  .then(thirdTask)
+  .then(() => {
+    console.log('All tasks completed');
+  });
+```
+
+#### Using Async/Await
+
+```javascript
+async function runTasks() {
+  await firstTask();
+  await secondTask();
+  await thirdTask();
+  console.log('All tasks completed');
+}
+
+runTasks();
+```
