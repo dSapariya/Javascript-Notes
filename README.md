@@ -1212,3 +1212,175 @@ async function runTasks() {
 
 runTasks();
 ```
+
+### Event Loop
+The event loop is a fundamental concept in JavaScript, especially when dealing with asynchronous operations. Understanding the event loop is crucial for writing efficient and non-blocking code. Here’s an overview of how it works:
+
+### Overview
+
+JavaScript is single-threaded, meaning it executes code in a single sequence of instructions. However, it can handle asynchronous operations, such as I/O tasks, without blocking the main thread. This is achieved through the event loop.
+
+### How It Works
+
+1. **Call Stack**: This is where your function calls are added and executed. It operates in a LIFO (Last In, First Out) manner. When you call a function, it gets pushed onto the stack, and when the function returns, it gets popped off the stack.
+
+2. **Web APIs**: These are provided by the browser (or Node.js in server environments) and include functionalities like `setTimeout`, `fetch`, DOM events, etc. When you call an asynchronous function, it is handed off to the Web APIs.
+
+3. **Task Queue**: Also known as the callback queue, this is where callbacks of asynchronous operations are queued once the Web APIs have completed their tasks. Tasks from the task queue are added to the call stack when the call stack is empty.
+
+4. **Event Loop**: This is the mechanism that checks the call stack and the task queue. If the call stack is empty, the event loop pushes the first task from the task queue onto the call stack.
+
+### Steps in the Event Loop
+
+1. **Execution Phase**: The JavaScript engine starts executing the code from the top of the script file.
+2. **Web APIs Phase**: When it encounters an asynchronous operation (like `setTimeout` or `fetch`), it offloads it to the Web APIs.
+3. **Task Completion**: Once the Web APIs complete the task, the associated callback is moved to the task queue.
+4. **Event Loop Phase**: The event loop continually checks if the call stack is empty. If it is, it moves the first task from the task queue to the call stack.
+5. **Repeat**: This process continues, allowing JavaScript to handle asynchronous operations efficiently.
+
+### Example
+
+```javascript
+console.log('Start');
+
+setTimeout(() => {
+  console.log('Timeout callback');
+}, 2000);
+
+console.log('End');
+```
+
+- **Step 1**: `console.log('Start')` is pushed to the call stack and executed.
+- **Step 2**: `setTimeout` is called, and its callback is handed off to the Web APIs.
+- **Step 3**: `console.log('End')` is pushed to the call stack and executed.
+- **Step 4**: After 2000ms, the callback of `setTimeout` is moved to the task queue.
+- **Step 5**: The event loop moves the callback from the task queue to the call stack, where it gets executed.
+
+**Output**:
+```
+Start
+End
+Timeout callback
+```
+
+### Microtasks and Macrotasks
+
+In addition to the task queue, there's also a microtask queue, which has higher priority than the task queue. Promises and other microtasks are handled in this queue.
+
+- **Microtasks**: These include promises, `MutationObserver`, and process.nextTick in Node.js. They are executed immediately after the currently executing script and before any other tasks from the task queue.
+- **Macrotasks**: These include `setTimeout`, `setInterval`, and I/O callbacks.
+
+### Example with Microtasks
+
+```javascript
+console.log('Start');
+
+setTimeout(() => {
+  console.log('setTimeout callback');
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log('Promise callback');
+});
+
+console.log('End');
+```
+
+**Output**:
+```
+Start
+End
+Promise callback
+setTimeout callback
+```
+
+In this example, the promise callback (a microtask) executes before the `setTimeout` callback (a macrotask), even though `setTimeout` was scheduled with a delay of 0ms.
+
+### Higher-Order Functions
+Higher-order functions are a fundamental concept in JavaScript (and many other programming languages). A higher-order function is a function that either takes one or more functions as arguments or returns a function as its result. Higher-order functions enable a more functional programming style, which can lead to cleaner and more expressive code.
+
+### Characteristics of Higher-Order Functions
+
+1. **Accepts Functions as Arguments**: A higher-order function can take other functions as parameters.
+2. **Returns Functions**: A higher-order function can return a new function.
+
+### Common Higher-Order Functions
+
+Here are some common higher-order functions used in JavaScript:
+
+#### 1. `map`
+The `map` function takes a function and applies it to each element of an array, returning a new array with the results.
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map(num => num * 2);
+console.log(doubled); // [2, 4, 6, 8]
+```
+
+#### 2. `filter`
+The `filter` function takes a function that returns a boolean and uses it to filter elements of an array, returning a new array with only the elements that satisfy the condition.
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+```
+
+#### 3. `reduce`
+The `reduce` function takes a function and an initial value, and applies the function to each element of the array, accumulating the result into a single value.
+
+```javascript
+const numbers = [1, 2, 3, 4];
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+console.log(sum); // 10
+```
+
+#### 4. `forEach`
+The `forEach` function takes a function and applies it to each element of an array. It doesn't return a new array, but it can be used for side effects like logging or updating values.
+
+```javascript
+const numbers = [1, 2, 3, 4];
+numbers.forEach(num => console.log(num));
+// 1
+// 2
+// 3
+// 4
+```
+
+### Custom Higher-Order Functions
+
+You can create your own higher-order functions. Here are some examples:
+
+#### Function Returning a Function
+
+```javascript
+function createMultiplier(multiplier) {
+  return function (num) {
+    return num * multiplier;
+  };
+}
+
+const double = createMultiplier(2);
+console.log(double(5)); // 10
+
+const triple = createMultiplier(3);
+console.log(triple(5)); // 15
+```
+
+#### Function Taking a Function as an Argument
+
+```javascript
+function applyOperation(arr, operation) {
+  return arr.map(operation);
+}
+
+const numbers = [1, 2, 3, 4];
+const squared = applyOperation(numbers, num => num * num);
+console.log(squared); // [1, 4, 9, 16]
+```
+
+### Benefits of Higher-Order Functions
+
+1. **Code Reusability**: Higher-order functions promote the reuse of functions by abstracting common patterns.
+2. **Modularity**: They help in creating more modular code, making it easier to test and maintain.
+3. **Expressiveness**: Code written with higher-order functions can be more expressive and easier to understand.
