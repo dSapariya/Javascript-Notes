@@ -1384,3 +1384,129 @@ console.log(squared); // [1, 4, 9, 16]
 1. **Code Reusability**: Higher-order functions promote the reuse of functions by abstracting common patterns.
 2. **Modularity**: They help in creating more modular code, making it easier to test and maintain.
 3. **Expressiveness**: Code written with higher-order functions can be more expressive and easier to understand.
+
+### Functional programming (FP)
+Functional programming (FP) is a programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing state or mutable data. It is a declarative programming style, where the focus is on what to solve rather than how to solve it. Here are the core principles and concepts of functional programming:
+
+### Core Principles of Functional programming
+
+1. **First-Class and Higher-Order Functions**: Functions are treated as first-class citizens, meaning they can be assigned to variables, passed as arguments, and returned from other functions. Higher-order functions take other functions as arguments or return them.
+
+2. **Pure Functions**: Pure functions have no side effects. They always produce the same output given the same input and do not alter any state outside their scope.
+
+3. **Immutability**: Data is immutable, meaning it cannot be changed once created. Instead of modifying data, new data structures are created.
+
+4. **Function Composition**: Functions are composed together to build more complex functions. This is similar to the mathematical concept of composing functions.
+
+5. **Avoiding Side Effects**: FP aims to avoid side effects, which are changes in state that do not depend on the function's input parameters.
+
+6. **Declarative Code**: Functional programming focuses on what needs to be done rather than how it should be done, leading to more readable and concise code.
+
+### Key Concepts
+
+#### Pure Functions
+
+A pure function does not have side effects and returns the same output for the same input.
+
+```javascript
+// Pure function
+const add = (a, b) => a + b;
+
+console.log(add(2, 3)); // 5
+console.log(add(2, 3)); // 5 (always the same result)
+```
+
+#### Immutability
+
+Data is not changed but new data is created instead.
+
+```javascript
+const arr = [1, 2, 3];
+
+// Immutable update
+const newArr = [...arr, 4];
+
+console.log(arr); // [1, 2, 3]
+console.log(newArr); // [1, 2, 3, 4]
+```
+
+#### Higher-Order Functions
+
+Functions that take other functions as arguments or return functions.
+
+```javascript
+const map = (arr, fn) => {
+  const result = [];
+  for (const value of arr) {
+    result.push(fn(value));
+  }
+  return result;
+};
+
+const numbers = [1, 2, 3, 4];
+const doubled = map(numbers, num => num * 2);
+console.log(doubled); // [2, 4, 6, 8]
+```
+
+#### Function Composition
+
+Combining functions to create more complex operations.
+
+```javascript
+const compose = (f, g) => x => f(g(x));
+
+const add1 = x => x + 1;
+const multiply2 = x => x * 2;
+
+const add1ThenMultiply2 = compose(multiply2, add1);
+
+console.log(add1ThenMultiply2(5)); // (5 + 1) * 2 = 12
+```
+
+#### Currying
+
+Transforming a function that takes multiple arguments into a series of functions that each take a single argument.
+
+```javascript
+const add = (a, b) => a + b;
+const curriedAdd = a => b => a + b;
+
+const add5 = curriedAdd(5);
+console.log(add5(3)); // 8
+```
+
+#### Recursion
+
+Using recursion instead of loops for iteration.
+
+```javascript
+const factorial = n => {
+  if (n === 0) return 1;
+  return n * factorial(n - 1);
+};
+
+console.log(factorial(5)); // 120
+```
+
+### Benefits of Functional Programming
+
+1. **Predictability**: Pure functions are predictable and easier to test.
+2. **Modularity**: FP encourages small, reusable functions.
+3. **Concurrency**: Immutable data structures make concurrent programming easier and less error-prone.
+4. **Readability**: Declarative code can be more concise and easier to understand.
+
+### Functional Programming in JavaScript
+
+JavaScript supports functional programming and provides many built-in higher-order functions like `map`, `filter`, and `reduce`.
+
+```javascript
+const numbers = [1, 2, 3, 4];
+
+const doubled = numbers.map(num => num * 2);
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+const sum = numbers.reduce((acc, num) => acc + num, 0);
+
+console.log(doubled); // [2, 4, 6, 8]
+console.log(evenNumbers); // [2, 4]
+console.log(sum); // 10
+```
